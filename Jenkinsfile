@@ -10,27 +10,22 @@ pipeline {
         }
 
         stage('Setup Environment') {
-            steps {
-                echo 'Creating virtual environment and installing dependencies...'
-                sh '''
-                    python3 -m venv venv
-                    . venv/bin/activate
-                    pip install --upgrade pip
-                    pip install -r requirements.txt
-                '''
-            }
+    steps {
+        sh '''
+            python3 -m venv venv
+            ./venv/bin/python -m pip install --upgrade pip
+            ./venv/bin/pip install -r requirements.txt
+        '''
+    }
         }
 
         stage('Run Tests') {
-            steps {
-                echo 'Running unit tests with pytest...'
-                sh '''
-                    . venv/bin/activate
-                    pytest test_app.py -v
-                '''
-            }
+    steps {
+        sh '''
+            ./venv/bin/pytest test_app.py -v
+        '''
+    }
         }
-
         stage('Build') {
             steps {
                 echo 'Simulating a build step (packaging the app)...'
