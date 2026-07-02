@@ -8,17 +8,32 @@ pipeline {
                 checkout scm
             }
         }
-
+stage('Debug') {
+    steps {
+        sh '''
+            pwd
+            ls -la
+            which python3
+            python3 --version
+            which pip
+            pip --version
+        '''
+    }
+}
         stage('Setup Environment') {
     steps {
         sh '''
             python3 -m venv venv
-            ./venv/bin/python -m pip install --upgrade pip
-            ./venv/bin/pip install -r requirements.txt
+
+            ls -la venv/bin
+
+            ./venv/bin/python --version
+            ./venv/bin/python -m pip --version
+
+            ./venv/bin/python -m pip install -r requirements.txt
         '''
     }
         }
-
         stage('Run Tests') {
     steps {
         sh '''
