@@ -37,7 +37,7 @@ stage('Debug') {
         stage('Run Tests') {
     steps {
         sh '''
-            ./venv/bin/pytest test_app.py -v
+            ./venv/bin/python -m pytest test_app.py -v
         '''
     }
         }
